@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrameHunter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f4b9f4f060f706f5adc39ef64eb62ffe3f089b26")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrameHunter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrameHunter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

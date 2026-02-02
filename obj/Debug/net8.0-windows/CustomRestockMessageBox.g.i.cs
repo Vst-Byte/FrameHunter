@@ -69,7 +69,7 @@ namespace FrameHunterFPS {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrameHunter;component/customrestockmessagebox.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrameHunter;V1.0.0.0;component/customrestockmessagebox.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\CustomRestockMessageBox.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

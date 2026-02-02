@@ -77,7 +77,7 @@ namespace FrameHunterFPS {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrameHunter;component/gameintropage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrameHunter;V1.0.0.0;component/gameintropage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\GameIntroPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
