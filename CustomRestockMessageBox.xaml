@@ -1,0 +1,91 @@
+﻿<Window x:Class="FrameHunterFPS.CustomRestockMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="System Alert" Height="240" Width="440" 
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#00FFFF" Offset="0"/>
+            <GradientStop Color="#BC13FE" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Border CornerRadius="20" Background="#141417" BorderThickness="1" BorderBrush="#333">
+        <Border.Effect>
+            <DropShadowEffect Color="#BC13FE" BlurRadius="25" Opacity="0.2" ShadowDepth="0"/>
+        </Border.Effect>
+
+        <Grid Margin="30,25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="txtTitle" Text="RESTORE SYSTEM" FontSize="18" FontWeight="Bold" 
+                       HorizontalAlignment="Center">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#00FFFF" Offset="0"/>
+                        <GradientStop Color="#BC13FE" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#00FFFF" BlurRadius="10" Opacity="0.3" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <Rectangle Grid.Row="1" Height="1" Margin="0,15" Opacity="0.2" Fill="{StaticResource BrandGradient}"/>
+
+            <TextBlock x:Name="txtMessage" Grid.Row="2" 
+                       Text="Are you sure you want to restore all Windows defaults? This will undo all optimizations." 
+                       Foreground="#CCC" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       TextAlignment="Center" TextWrapping="Wrap" FontSize="13"/>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+
+                <Button Content="CANCEL" Width="100" Height="38" Margin="0,0,12,0" Click="Cancel_Click" 
+                        Cursor="Hand" Background="Transparent" Foreground="#777" BorderBrush="#333" BorderThickness="1">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="19">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#555"/>
+                                    <Setter Property="Foreground" Value="#AAA"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Content="CONFIRM" Width="130" Height="38" Click="Confirm_Click" 
+                        Cursor="Hand" Foreground="Black" FontWeight="Bold">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{StaticResource BrandGradient}" CornerRadius="19">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.9"/>
+                                    <Setter TargetName="border" Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="#BC13FE" BlurRadius="15" ShadowDepth="0" Opacity="0.5"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

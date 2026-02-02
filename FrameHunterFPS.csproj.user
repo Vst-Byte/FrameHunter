@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="CustomMessageBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CustomRestockMessageBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ExitDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GameIntroPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AppMenuPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GameOptimizer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GpuTuningPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SystemTweaksPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

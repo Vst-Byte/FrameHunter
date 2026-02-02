@@ -1,0 +1,149 @@
+﻿<Page x:Class="FrameHunterFPS.GameIntroPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="GameIntroPage">
+
+    <Page.Resources>
+        <Color x:Key="ColorCyan">#00FFFF</Color>
+        <Color x:Key="ColorPurple">#BC13FE</Color>
+        <SolidColorBrush x:Key="NeonCyanBrush" Color="{StaticResource ColorCyan}"/>
+
+        <LinearGradientBrush x:Key="NeonGradientBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource ColorCyan}" Offset="0.0"/>
+            <GradientStop Color="{StaticResource ColorPurple}" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <DropShadowEffect x:Key="NeonGlow" Color="{StaticResource ColorCyan}" BlurRadius="25" ShadowDepth="0" Opacity="0.7"/>
+
+        <Style x:Key="CleanStartButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#11FFFFFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <ScaleTransform x:Name="ButtonScale" ScaleX="1" ScaleY="1"/>
+                            </Grid.RenderTransform>
+                            <Border x:Name="OuterBorder" BorderBrush="{StaticResource NeonGradientBrush}" BorderThickness="1.5" CornerRadius="27.5" Background="{TemplateBinding Background}">
+                                <Border.Effect>
+                                    <DropShadowEffect x:Name="BorderGlow" Color="{StaticResource ColorPurple}" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+                                </Border.Effect>
+                            </Border>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="OuterBorder" Property="Background" Value="#22FFFFFF"/>
+                                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{StaticResource NeonCyanBrush}"/>
+                                <Setter TargetName="OuterBorder" Property="Effect" Value="{StaticResource NeonGlow}"/>
+                                <Setter Property="Foreground" Value="{StaticResource NeonCyanBrush}"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonScale" Storyboard.TargetProperty="ScaleX" To="1.05" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonScale" Storyboard.TargetProperty="ScaleY" To="1.05" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonScale" Storyboard.TargetProperty="ScaleX" To="1" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonScale" Storyboard.TargetProperty="ScaleY" To="1" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="ImgLogo" 
+                                     Storyboard.TargetProperty="Opacity" 
+                                     From="0" To="1" Duration="0:0:2.5"/>
+
+                    <DoubleAnimation Storyboard.TargetName="ImgLogo"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="1.0" To="0.7" 
+                                     Duration="0:0:4" 
+                                     AutoReverse="True" 
+                                     RepeatBehavior="Forever"
+                                     BeginTime="0:0:2.5"/>
+
+                    <DoubleAnimation Storyboard.TargetName="StackBotao" 
+                                     Storyboard.TargetProperty="Opacity" 
+                                     From="0" To="1" 
+                                     Duration="0:0:0.8" 
+                                     BeginTime="0:0:2.2"/>
+
+                    <ThicknessAnimation Storyboard.TargetName="StackBotao" 
+                                        Storyboard.TargetProperty="Margin" 
+                                        From="0,0,0,-40" To="0,0,0,50" 
+                                        Duration="0:0:0.8" 
+                                        BeginTime="0:0:2.2"
+                                        DecelerationRatio="1.0"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <Grid Background="Black">
+        <Image x:Name="ImgLogo" Source="Assets/logo.jpg" Stretch="UniformToFill" Opacity="0"/>
+
+        <Rectangle VerticalAlignment="Bottom" Height="150">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="Transparent" Offset="0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel x:Name="StackBotao" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" Opacity="0">
+
+            <Button x:Name="BtnStart" 
+                    Content="S T A R T   O P T I M I Z A T I O N" 
+                    Style="{StaticResource CleanStartButtonStyle}" 
+                    Click="BtnStart_Click" Cursor="Hand"/>
+
+            <StackPanel HorizontalAlignment="Center" Margin="0,15,0,0">
+
+                <TextBlock Text="v1.0.0 Stable Build" 
+                           Foreground="#44FFFFFF" 
+                           HorizontalAlignment="Center" 
+                           FontSize="10" 
+                           FontWeight="SemiBold"/>
+
+                <Rectangle Width="30" Height="1" Fill="#22FFFFFF" Margin="0,5,0,5"/>
+
+                <TextBlock Text="© 2026 FrameHunter Inc. All rights reserved." 
+                           Foreground="#33FFFFFF" 
+                           HorizontalAlignment="Center" 
+                           FontSize="9"/>
+
+                <TextBlock HorizontalAlignment="Center" Margin="0,2,0,0" FontSize="9">
+                    <Run Text="Developed" Foreground="#33FFFFFF"/>
+                    <Run Text="by" Foreground="#33FFFFFF"/>
+                    <Run Text="Enchanted" Foreground="White" FontWeight="Bold"/>
+                    <Run Text="♥" Foreground="#BC13FE"/>
+                </TextBlock>
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

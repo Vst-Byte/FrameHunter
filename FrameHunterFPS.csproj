@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+
+		<AssemblyName>FrameHunter</AssemblyName>
+		<AssemblyTitle>FrameHunter</AssemblyTitle>
+		<ApplicationIcon>Assets\logo.ico</ApplicationIcon>
+		<StartupObject>FrameHunterFPS.App</StartupObject>
+		<ApplicationManifest>bin\Debug\net8.0-windows\app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Remove="app.manifest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Assets\logo.ico" />
+		<None Remove="Assets\logo.jpg" />
+		<None Remove="Assets\logo.png" />
+		<None Remove="Assets\mirar.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Assets\logo.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<PackageReference Include="LibreHardwareMonitorLib" Version="0.9.5" />
+		<Resource Include="Assets\mirar.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Assets\logo.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="app.manifest">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+</Project>

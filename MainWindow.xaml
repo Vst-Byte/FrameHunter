@@ -1,0 +1,233 @@
+﻿<Window x:Class="FrameHunterFPS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrameHunterFPS"
+        mc:Ignorable="d"
+        Title="Frame Hunter" Height="720" Width="1150"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40" ResizeBorderThickness="5" GlassFrameThickness="0" CornerRadius="20"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Color x:Key="ColorCyan">#00FFFF</Color>
+        <Color x:Key="ColorPurple">#BC13FE</Color>
+        <Color x:Key="ColorGold">#FFD700</Color>
+        <SolidColorBrush x:Key="BrushBg" Color="#141417"/>
+        <SolidColorBrush x:Key="BrushTextMuted" Color="#A0A0A0"/>
+        <SolidColorBrush x:Key="BrushCyan" Color="{StaticResource ColorCyan}"/>
+        <SolidColorBrush x:Key="BrushPurple" Color="{StaticResource ColorPurple}"/>
+        <SolidColorBrush x:Key="BrushGold" Color="{StaticResource ColorGold}"/>
+
+        <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="{StaticResource ColorCyan}" Offset="0.0"/>
+            <GradientStop Color="{StaticResource ColorPurple}" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="BrandMenuBtn" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource BrushTextMuted}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="20,0,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" Background="{TemplateBinding Background}" CornerRadius="12">
+                            <Grid>
+                                <Rectangle x:Name="Ind" HorizontalAlignment="Left" Width="3" Height="20" Fill="{StaticResource BrushCyan}" Visibility="Collapsed" RadiusX="1.5" RadiusY="1.5">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect Color="{StaticResource ColorCyan}" BlurRadius="10" ShadowDepth="0"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <ContentPresenter VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="bdr" Property="Background" Value="#10FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="Selected">
+                                <Setter Property="Foreground" Value="{StaticResource BrushCyan}"/>
+                                <Setter TargetName="Ind" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LogOutBtn" TargetType="Button">
+            <Setter Property="Background" Value="#08FF5555"/>
+            <Setter Property="Foreground" Value="#FF5555"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr" Property="Background" Value="#25FF5555"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#141417" CornerRadius="20" BorderThickness="1">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#33FFFFFF" Offset="0"/>
+                <GradientStop Color="#11FFFFFF" Offset="0.5"/>
+                <GradientStop Color="#00000000" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="5" Opacity="0.5"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260" x:Name="ColMenu"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="SidebarBorder" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Panel.ZIndex="1" CornerRadius="20,0,0,20" Background="#2D2D35">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="50" ShadowDepth="15" Direction="0" Opacity="0.7"/>
+                </Border.Effect>
+                <Grid Margin="30,30,30,30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Viewbox Width="24" Height="24" Stretch="Uniform" Margin="0,1,5,0">
+                                <Path Data="F1 M 4,2 L 22,2 L 22,8 L 10,8 L 10,12 L 18,12 L 18,18 L 10,18 L 10,26 L 4,26 L 4,2 Z"
+                                      Fill="{StaticResource BrandGradient}" StrokeThickness="0">
+                                    <Path.Effect>
+                                        <DropShadowEffect Color="{StaticResource ColorCyan}" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                                    </Path.Effect>
+                                </Path>
+                            </Viewbox>
+                            <TextBlock Text="RAMEHUNTER" Foreground="White" FontWeight="Bold" FontSize="22" VerticalAlignment="Center" Margin="1,0,0,0" FontFamily="Rajdhani, Segoe UI"/>
+                        </StackPanel>
+                        <Rectangle Height="1" Margin="-10,20,-10,0" HorizontalAlignment="Stretch">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#44FFFFFF" Offset="0"/>
+                                    <GradientStop Color="Transparent" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,5">
+                            <Rectangle Width="4" Height="4" Fill="{StaticResource BrushCyan}" RadiusX="2" RadiusY="2" VerticalAlignment="Center" Margin="0,1,8,0"/>
+                            <TextBlock Text="PERFORMANCE" Foreground="White" FontSize="10" FontWeight="Bold" Opacity="0.5"/>
+                        </StackPanel>
+                        <Button Content="OVERVIEW" Style="{StaticResource BrandMenuBtn}" Click="BtnOverview_Click"/>
+                        <Button Content="SYSTEM TWEAKS" Style="{StaticResource BrandMenuBtn}" Click="BtnWindows_Click"/>
+                        <Button Content="GPU TUNING" Style="{StaticResource BrandMenuBtn}" Click="BtnGpu_Click"/>
+                        <Button Content="GAME OPTIMIZER" Style="{StaticResource BrandMenuBtn}" Click="BtnGames_Click"/>
+                        <Button Content="INPUT LATENCY" Style="{StaticResource BrandMenuBtn}" Click="BtnLatency_Click"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="5,25,0,5">
+                            <Rectangle Width="4" Height="4" Fill="{StaticResource BrushGold}" RadiusX="2" RadiusY="2" VerticalAlignment="Center" Margin="0,1,8,0"/>
+                            <TextBlock Text="VISUALS &amp; HUD" Foreground="White" FontSize="10" FontWeight="Bold" Opacity="0.5"/>
+                        </StackPanel>
+                        <Button Content="CROSSHAIR V2" Style="{StaticResource BrandMenuBtn}" Click="BtnCrosshair_Click"/>
+                        <Button Content="FPS MONITOR" Style="{StaticResource BrandMenuBtn}" Click="BtnOverlay_Click"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="5,25,0,5">
+                            <Rectangle Width="4" Height="4" Fill="{StaticResource BrushPurple}" RadiusX="2" RadiusY="2" VerticalAlignment="Center" Margin="0,1,8,0"/>
+                            <TextBlock Text="NETWORK &amp; TOOLS" Foreground="White" FontSize="10" FontWeight="Bold" Opacity="0.5"/>
+                        </StackPanel>
+                        <Button Content="SYSTEM CLEANUP" Style="{StaticResource BrandMenuBtn}" Click="BtnClean_Click"/>
+                        <Button Content="NETWORK OPTIMIZER" Style="{StaticResource BrandMenuBtn}" Click="BtnNetwork_Click"/>
+                        <Button Content="BACKUP/RECOVER" Style="{StaticResource BrandMenuBtn}" Click="BtnStartup_Click"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="2" Style="{StaticResource LogOutBtn}" VerticalAlignment="Bottom" Click="BtnExit_Click" Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Width="14" Height="14" Margin="0,0,10,0">
+                                <Path Data="M10.42,2.37C12.35,3.34 13.88,5.09 14.59,7.26C15.3,9.43 15.11,11.81 14.07,13.83C13.03,15.85 11.23,17.32 9.03,17.92C6.83,18.53 4.45,18.21 2.53,17.04C0.61,15.86 -0.66,13.95 -0.99,11.71C-1.33,9.47 -0.69,7.13 0.77,5.29C2.23,3.46 4.39,2.31 6.72,2.23L6.72,4.24C5.07,4.35 3.54,5.22 2.52,6.58C1.5,7.94 1.1,9.66 1.41,11.31C1.72,12.97 2.7,14.41 4.11,15.28C5.52,16.15 7.24,16.35 8.84,15.83C10.44,15.31 11.77,14.12 12.49,12.59C13.22,11.06 13.29,9.29 12.7,7.7C12.11,6.11 10.92,4.84 9.42,4.2L10.42,2.37M8,0L8,9L6,9L6,0L8,0Z" Fill="#FF5555" Stretch="Uniform"/>
+                            </Viewbox>
+                            <TextBlock Text="LOG OUT" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="0" Grid.Column="1" Background="Transparent" MouseDown="Window_MouseDown">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0"
+                            WindowChrome.IsHitTestVisibleInChrome="True">
+
+                    <Button x:Name="BtnMinimize" Content="—" Width="40" Height="40" Click="BtnMinimize_Click" 
+                            Foreground="Gray" Background="Transparent" BorderThickness="0" Cursor="Hand" FontSize="16"/>
+
+                    <Button x:Name="BtnClose" Content="✕" Width="40" Height="40" Click="BtnClose_Click" 
+                            Foreground="Gray" Background="Transparent" BorderThickness="0" Cursor="Hand" FontSize="14">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="bdr" Background="Transparent">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="bdr" Property="Background" Value="#CCFF0000"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Frame x:Name="MainFrame" 
+                   Grid.Row="1" 
+                   Grid.Column="1" 
+                   NavigationUIVisibility="Hidden" 
+                   Margin="0"
+                   RenderTransformOrigin="0.5,0.5">
+                <Frame.RenderTransform>
+                    <TranslateTransform X="0" Y="0"/>
+                </Frame.RenderTransform>
+            </Frame>
+        </Grid>
+    </Border>
+</Window>

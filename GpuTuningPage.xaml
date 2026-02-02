@@ -1,0 +1,329 @@
+﻿<Page x:Class="FrameHunterFPS.GpuTuningPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1200"
+      Title="GpuTuningPage"
+      FontFamily="Segoe UI">
+
+    <Page.Resources>
+        <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#00FFFF" Offset="0"/>
+            <GradientStop Color="#BC13FE" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="CardHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="CardBody" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#888888"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="GlassCard" TargetType="Border">
+            <Setter Property="Background" Value="#0F0F10"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#1F1F22"/>
+            <Setter Property="Padding" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Arrow"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#141416"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BrandGradient}"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#BC13FE" BlurRadius="30" ShadowDepth="0" Opacity="0.15"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BtnBrand" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" CornerRadius="6" Background="Transparent" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" Opacity="0.5">
+                                    <GradientStop Color="#00FFFF" Offset="0"/>
+                                    <GradientStop Color="#BC13FE" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+
+                            <TextBlock x:Name="txt" Text="{TemplateBinding Content}" Foreground="#DDDDDD" FontSize="12" FontWeight="Bold" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr" Property="Background" Value="{StaticResource BrandGradient}"/>
+                                <Setter TargetName="bdr" Property="BorderThickness" Value="0"/>
+                                <Setter TargetName="txt" Property="Foreground" Value="Black"/>
+                                <Setter TargetName="bdr" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#00FFFF" BlurRadius="10" ShadowDepth="0" Opacity="0.4"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+                    <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,30,0,0" To="0" Duration="0:0:0.5" DecelerationRatio="0.9"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,30,0,20" HorizontalAlignment="Center">
+            <TextBlock Text="GPU PERFORMANCE" FontSize="32" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBlock Text="DETECTED:" Foreground="#666" FontWeight="SemiBold" FontSize="12" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <Border Background="#1A1A1A" CornerRadius="6" Padding="10,4">
+                    <TextBlock x:Name="TxtDetectedGpu" Text="SCANNING..." FontWeight="Bold" FontSize="13">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#00FFFF" Offset="0"/>
+                                <GradientStop Color="#BC13FE" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1" MaxWidth="1150" Margin="40,0,40,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+
+                <Grid x:Name="PanelNvidia" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="NVIDIA GEFORCE" Foreground="#00FFFF" FontWeight="Bold" FontSize="12" Margin="2,0,0,10" Opacity="0.7"/>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Custom Profile" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Injects 'FrameHunter.nip' via Profile Inspector." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="LOAD" Style="{StaticResource BtnBrand}" Click="BtnNvidiaProfile_Click"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="2" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Power Management" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Forces 'Prefer Maximum Performance' mode." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="APPLY" Style="{StaticResource BtnBrand}" Click="BtnNvidiaTweak_Click"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Kill Telemetry" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Disables background tracking to save CPU." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="DISABLE" Style="{StaticResource BtnBrand}" Click="BtnNvidiaTelemetry_Click"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="2" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="MSI Mode" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Enables Message Signaled Interrupts for lower latency." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="ENABLE" Style="{StaticResource BtnBrand}" Click="BtnNvidiaMsi_Click"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="PanelAmd" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="AMD RADEON" Foreground="#00FFFF" FontWeight="Bold" FontSize="12" Margin="2,0,0,10" Opacity="0.7"/>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Disable ULPS" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Fixes micro-stutters." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="DISABLE" Style="{StaticResource BtnBrand}" Click="BtnAmdUlps_Click"/>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="2" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Flush Cache" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Fixes texture glitches." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="CLEAR" Style="{StaticResource BtnBrand}" Click="BtnAmdCache_Click"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Disable MPO" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Fixes screen flickering." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="APPLY" Style="{StaticResource BtnBrand}" Click="BtnAmdMpo_Click"/>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="2" Style="{StaticResource GlassCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Force Clocks" Style="{StaticResource CardHeader}"/>
+                                <TextBlock Grid.Row="1" Text="Prevents GPU sleep." Style="{StaticResource CardBody}"/>
+                                <Button Grid.Row="2" Content="ENABLE" Style="{StaticResource BtnBrand}" Click="BtnAmdDeepSleep_Click"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="UNIVERSAL" Foreground="#BC13FE" FontWeight="Bold" FontSize="12" Margin="2,0,0,10" Opacity="0.7"/>
+
+                <Border Grid.Row="1" Style="{StaticResource GlassCard}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="High GPU Priority" Style="{StaticResource CardHeader}"/>
+                        <TextBlock Grid.Row="1" Text="Forces Windows Scheduler to prioritize Gaming tasks over background apps." Style="{StaticResource CardBody}"/>
+                        <Button Grid.Row="2" Content="ENABLE" Style="{StaticResource BtnBrand}" Click="BtnPriority_Click"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="3" Style="{StaticResource GlassCard}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Hardware Scheduling" Style="{StaticResource CardHeader}"/>
+                        <TextBlock Grid.Row="1" Text="Enables Windows HAGS for reduced latency and DLSS 3 support." Style="{StaticResource CardBody}"/>
+                        <Button Grid.Row="2" Content="ENABLE" Style="{StaticResource BtnBrand}" Click="BtnHags_Click"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>
